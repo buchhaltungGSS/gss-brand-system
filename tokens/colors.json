@@ -1,0 +1,32 @@
+{
+  "$schema": "./tokens.schema.json",
+  "brand": {
+    "gss": {
+      "beere":     { "value": "#af026b", "rgb": [175, 2, 107],  "pantone": "234c",  "description": "Hauptakzent GSS" },
+      "beereSoft": { "value": "#d63a92", "rgb": [214, 58, 146], "description": "Hover/Soft-Variante" },
+      "aubergine": { "value": "#772a5e", "rgb": [119, 42, 94],  "pantone": "7650c", "description": "Sekundärakzent" },
+      "slate":     { "value": "#253c4e", "rgb": [37, 60, 78],   "pantone": "7546c", "description": "Hintergrund / Brand-Slate" }
+    },
+    "teracue": {
+      "blue":     { "value": "#19009b", "rgb": [25, 0, 155],  "description": "Hauptakzent Teracue" },
+      "blueSoft": { "value": "#4a30c9", "rgb": [74, 48, 201], "description": "Hover/Soft-Variante" },
+      "blueDeep": { "value": "#0d0058", "rgb": [13, 0, 88],   "description": "Hintergrund-Variante" }
+    },
+    "scf": {
+      "lilaDark":  { "value": "#492483", "rgb": [73, 36, 131],  "description": "Hauptakzent Smart City Factory" },
+      "lilaLight": { "value": "#5f5aa5", "rgb": [95, 90, 165],  "description": "Hover/Soft-Variante" },
+      "slate":     { "value": "#263b4e", "rgb": [38, 59, 78],   "description": "Hintergrund-Variante" }
+    }
+  },
+  "neutral": {
+    "textLight": { "value": "#dcdfe4", "description": "Body-Text auf dunkel" },
+    "textMid":   { "value": "#98a4b3", "description": "Sekundär-Text" },
+    "textDark":  { "value": "#1a374a", "description": "Body-Text auf hell" },
+    "slate950":  { "value": "#0c1a26" },
+    "slate900":  { "value": "#142838" },
+    "slate800":  { "value": "#1a374a" },
+    "slate700":  { "value": "#253c4e" },
+    "slate600":  { "value": "#3a566c" },
+    "slate500":  { "value": "#5b7385" }
+  }
+}

@@ -1,0 +1,13 @@
+# Große Sources, die nicht ins Repo gehören
+sources-large/
+
+# Lokale Notizen
+*.local.md
+
+# OS / Editor
+.DS_Store
+.vscode/*
+!.vscode/settings.json
+.idea
+node_modules/
+dist/
