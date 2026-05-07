@@ -1,99 +1,144 @@
 ---
 name: brand-extraction
-description: Anleitung zum Destillieren der GSS-Markenidentität aus den Roh-Materialien in sources/ in strukturiertes Wissen unter voice/, visual/, templates/. Wird verwendet beim ersten Befüllen des Brand-Systems und bei jeder Aktualisierung, wenn neue Quellen hinzukommen.
+description: Anleitung zum Destillieren der GSS Smart Solutions Markenidentität aus den Roh-Materialien in sources/ in strukturiertes Wissen unter voice/, visual/, templates/. **Brand-aware**: erkennt für jedes Quellmaterial die zugehörige Marke (GSS, Teracue, Smart City Factory) und routet Findings entsprechend. Wird verwendet beim ersten Befüllen des Brand-Systems und bei jeder Aktualisierung, wenn neue Quellen hinzukommen.
 ---
 
-# Brand-Extraktion: Workflow
+# Brand-Extraktion: Workflow (Multi-Brand)
 
-## Eingabe
-- Alles, was unter `sources/` liegt: PDFs, PPTX-Exports (auch als reiner Text-Dump),
-  E-Mail-Texte, gecrawlte Webseiten, Datenblätter, Newsletter.
-- Subfolder geben Hinweis auf Kontext (z.B. `sources/emails/` = transaktional/dialogisch).
+## Drei Marken, drei Audiences
 
-## Erste Lesephase – Inventur
+GSS Smart Solutions vereint drei Marken mit unterschiedlichen Tonalitäten,
+Vokabularen und Zielgruppen:
 
-Bevor du irgendwas extrahierst:
+| Marke | Domäne | Typische Empfänger |
+|---|---|---|
+| **GSS** | Entertainment, TV, Hospitality | Hotel-IT, Klinik-IT, ISP, Kabelnetzbetreiber, Hospitality-Integratoren |
+| **Teracue** | Broadcast, BOS, Stadien | Broadcast-Engineer, Polizei/Justiz-Beschaffung, Compliance-Officer, Stadiontechnik |
+| **Smart City Factory** | Edge, Sensorik, V2X | Stadtplaner, Industrie-Engineering, Sensor-/Lichthersteller-Kooperationen |
 
-1. Liste alle Dateien in `sources/`. Erstelle in `sources/INVENTORY.md` eine Tabelle:
-   `| Datei | Kontext | Datum (geschätzt) | Zielgruppe (vermutet) | Größe |`
-2. Für jede Datei: 1-Satz-Zusammenfassung, was drin ist.
-3. Frag nach, wenn ein Subfolder leer ist – brauchen wir mehr Material?
+Plus **übergreifende Konzern-Kommunikation** (Karriere, Konzern-Newsletter,
+Pressemeldungen über alle drei Marken hinweg) – die zählt zu "Shared".
 
-## Zweite Lesephase – Stil-Mining
+## Eingabe & Brand-Detection
 
-Beim Lesen achtest du auf:
+Beim Lesen jedes Files in `sources/`:
+
+1. **Brand identifizieren** – aus:
+   - Dateinamen-Präfix (`gss-...`, `teracue-...`, `scf-...`, `shared-...`)
+   - Inhalt: erwähnte Produkte (Smart Server → GSS, ENC-400 → Teracue, Edge-Compute → SCF)
+   - Empfänger / Kontext (Hotel-Kette → GSS, Polizei → Teracue, Stadt → SCF)
+   - Visuell: Akzentfarbe (Beere → GSS, Deep-Blue → Teracue, Lila → SCF)
+
+2. **Wenn unsicher**: in `INVENTORY.md` als `🟡 Brand-Zuordnung unklar` markieren
+   und User um Bestätigung bitten, **bevor** Findings irgendwohin geschrieben werden.
+
+3. **Cross-Brand-Material** (z.B. eine Karriereseite über GSS Smart Solutions als Konzern):
+   markieren als `shared`, Findings in `voice/_shared/` und `visual/_shared/`.
+
+## Erste Lesephase – Inventur (brand-tagged)
+
+Erstelle `sources/INVENTORY.md` mit Tabelle:
+
+| Datei | Brand | Kontext | Datum (geschätzt) | Empfänger (vermutet) | 1-Satz-Zusammenfassung |
+|---|---|---|---|---|---|
+
+Brand-Werte: `GSS`, `TERACUE`, `SCF`, `SHARED`, `🟡 unklar`.
+
+## Output-Routing
+
+Findings werden je nach Brand-Tag in unterschiedliche Ziel-Files geschrieben:
+
+| Quelle | Findings landen in |
+|---|---|
+| `gss`-tagged | `voice/gss/`, `visual/gss/` |
+| `teracue`-tagged | `voice/teracue/`, `visual/teracue/` |
+| `scf`-tagged | `voice/scf/`, `visual/scf/` |
+| `shared`-tagged | `voice/_shared/`, `visual/_shared/` |
+
+**Zusatz-Logik:** wenn ein Befund in mehreren Brand-Quellen ähnlich auftaucht
+(z.B. Sie-Form in allen Newslettern, "Made in Germany" in allen Datenblättern),
+heb ihn nach `voice/_shared/` oder `visual/_shared/` und vermerke nur Abweichungen
+in den Brand-Files.
+
+## Stil-Mining – pro Brand
+
+Für jede Marke achte beim Lesen ihrer Quellen auf:
 
 ### Sprache
-- **Du oder Sie?** Konsistent? Zielgruppen-abhängig?
-- **Aktiv vs. Passiv** – Anteil schätzen
-- **Satzlänge** – kurz und präzise oder ausschweifend?
-- **Fachbegriffe** – wann erklärt, wann vorausgesetzt
-- **Fremdwörter / Anglizismen** – welche werden benutzt, welche vermieden
-- **Typische Satzanfänge** (Header, Hook-Lines)
-- **CTA-Wording** – exakte Phrasen, keine Paraphrase
-- **Begrüßung / Verabschiedung** in Mails
+- Sie/Du-Konvention (sollte überall Sie sein – falls nicht: Notiz)
+- Aktiv- vs Passiv-Anteil
+- Satzlänge / -komplexität
+- Fachterminus-Dichte (Teracue tendenziell höher)
+- Anglizismen-Akzeptanz
 
 ### Vokabular
-- **Begriffe, die GSS bevorzugt** (z.B. "Kopfstation" vs "Headend",
-  "Signaldistribution" vs "Verteilung")
-- **Begriffe, die GSS vermeidet** (z.B. niemals "Lösungsanbieter" wenn nie verwendet)
-- **Marken-spezifische Wendungen** (z.B. "Made in Germany", "seit 1992", "Erfinder der Kopfstation")
-- **Disclaimer-Sprache** für Compliance (BOS-Kontext)
+- Brand-spezifische Begriffe (z.B. nur GSS sagt "Hotel-TV-Management")
+- Verbote (was wird konsequent vermieden?)
+- Produkt-Eigennamen (verbindliche Schreibweise)
 
-### Struktur
-- **Welche Sektionen wiederholen sich** in Newslettern, Decks, Datenblättern?
-- **Welche Reihenfolge** (Hook → Lösung → Beweis → CTA?)
-- **Welche Headline-Muster** (Frage? These? Provokation?)
-- **Boilerplate** – wiederkehrende Schluss-Absätze, Footer-Texte
+### Tonalität
+- GSS: vermutet wärmer/service-orientiert? Belegen.
+- Teracue: vermutet sachlich/sicherheitsfokussiert? Belegen.
+- SCF: vermutet zukunftsorientiert? Belegen.
 
-### Visuelles (aus PPTX/PDF/HTML)
-- **Farb-Verwendung** – wo Beere, wo Aubergine, wo Slate
-- **Foto-Stil** – Stockfotos? Eigene? Was wird gezeigt (Hardware? Personen? Räume?)
-- **Icon-Stil** – Outline? Filled? Custom?
-- **Layout-Konventionen** – Grid, Whitespace, Headline-Größen
+### Visuelles
+- Brand-Farben-Verwendung im konkreten Material (welche Farbe für welche UI-Rolle?)
+- Foto-Stil pro Brand (Hospitality-Settings vs. Server-Räume vs. Smart-City)
+- Icon-Stil
 
-## Output – wo was hinkommt
+## Output-Files (Soll-Zustand nach Extraktion)
 
-- `voice/voice-and-tone.md` – Top-Level-Prinzipien, Pillars
-- `voice/vocabulary.md` – Bevorzugte/vermiedene Begriffe in Tabellen
-- `voice/examples-by-context.md` – Snippets pro Kanal:
-  Vertriebs-Cold-Mail, Newsletter-Lead, Datenblatt-Intro,
-  Hero-Headline, Cookie-Banner, 404-Seite, Reklamations-Antwort
-- `voice/dos-and-donts.md` – Schwarz/Weiß-Liste
-- `visual/colors.md` – mit Pantone, CMYK, RGB, Hex pro Marke
-- `visual/typography.md` – inkl. Office-Fallbacks (Calibri etc.)
-- `visual/photography.md` – Art-Direction, Beispiel-Refs
-- `visual/iconography.md` – Stil-Definition
-- `visual/logo-usage.md` – Schutzräume, Min-Größen, Verbote
-- `templates/...` – konkret nachbaubare Vorlagen
+```
+voice/_shared/principles.md         übergreifende Voice-Prinzipien
+voice/_shared/vocabulary.md         übergreifende Begriffe
+voice/gss/voice.md                  GSS-Tonalität
+voice/gss/vocabulary.md             GSS-Begriffe
+voice/gss/examples.md               GSS-Beispieltexte
+voice/teracue/...                   analog
+voice/scf/...                       analog
 
-## Iteration
+visual/_shared/principles.md
+visual/_shared/typography.md
+visual/_shared/logo-system.md
+visual/gss/colors.md
+visual/gss/photography.md
+visual/gss/iconography.md
+visual/teracue/...                  analog
+visual/scf/...                      analog
+```
 
-Nach erstem Durchlauf:
-1. Erstelle `EXTRACTION_REPORT.md` im Repo-Root: was hast du extrahiert,
-   wo waren Lücken, wo widersprachen sich die Quellen.
-2. Markiere Vermutungen mit "🟡 ZU PRÜFEN".
-3. Liste explizit, welche Quell-Materialien noch fehlen, um das Bild zu vervollständigen.
+## Iteration & Belege
 
-User korrigiert, du integrierst.
-
-## Belege
-
-JEDE Aussage in den output-Files bekommt einen Beleg-Verweis:
+JEDE Aussage bekommt einen Beleg-Verweis mit Brand-Tag:
 
 ```markdown
-### Begrüßung in Vertriebs-Mails
+### Begrüßung in GSS-Vertriebsmails
 "Sehr geehrte/r [Vorname Nachname]," ist Standard.
 Ausnahme: bei bekannten Kontakten "Lieber [Vorname]," (3 von 7 gesichteten Mails).
 
-> Belege: sources/emails/sample-vertrieb-2024-03.txt:1, sources/emails/sample-bestand-2024-08.txt:1
+> Belege:
+> - sources/emails/gss-cold-vertrieb-2024-03.txt:1
+> - sources/emails/gss-bestand-2024-08.txt:1
+> Brand-Tag: GSS
 ```
+
+## Extraction Report
+
+Erzeuge `EXTRACTION_REPORT.md` im Repo-Root mit:
+- Anzahl gelesene Files **pro Brand**
+- Was wurde extrahiert (Cross-Reference auf Output-Files)
+- Brand-spezifische Lücken (z.B. "SCF: nur 2 Files in sources/, sehr begrenzte Aussagekraft")
+- Widersprüche (intra-brand und cross-brand)
+- Vermutungen (`🟡 ZU PRÜFEN`)
+- Welche Quell-Materialien fehlen?
+- Welche Themen brauchen menschliche Entscheidung?
 
 ## Was du NICHT machst
 
-- Eigenständig "verbessern" oder modernisieren – wir extrahieren den IST-Zustand.
-  Verbesserungs-Vorschläge gehen in einen separaten `RECOMMENDATIONS.md`,
-  nicht in die Stil-Files.
-- Aus zu wenig Material überextrapolieren. Lieber sagen
+- Eigenständig "verbessern" – wir extrahieren den IST-Zustand.
+- Aus zu wenig Material überextrapolieren. Bei SCF: lieber sagen
   "zu wenige Beispiele für belastbare Aussage" als raten.
 - Quell-Material editieren oder verschieben.
+- Brand-Annahmen treffen ohne Beleg.
+- Cross-Brand-Universalien einfach in eine Brand-Datei schreiben –
+  immer prüfen, ob das nicht nach `_shared/` gehört.

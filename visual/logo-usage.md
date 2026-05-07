@@ -1,17 +1,4 @@
-# Logo-Verwendung
-
-> Status: 🟡 Wird befüllt nach Sichtung sources/.
-
-## Schutzraum
-- (zu definieren – meist 1× Höhe des "G" rundherum)
-
-## Mindestgröße
-- Print: (zu definieren)
-- Screen: (zu definieren)
-
-## Hintergründe
-- Auf hellen Hintergründen: Logo-Variante (zu prüfen)
-- Auf dunklen Hintergründen: White-Variante `gss-logo-white.png`
-
-## Verbote
-- (typische "Don'ts": verzerren, nicht-Brand-Farben, Drop-Shadow, Outline)
+> **Deprecated.** Diese Datei wurde durch die brand-spezifische Struktur ersetzt.
+> Inhalt liegt jetzt in `visual/_shared/`, `visual/gss/`, `visual/teracue/`, `visual/scf/`.
+> Siehe `visual/README.md` für die neue Aufteilung.
+> Diese Datei kann beim nächsten Commit gelöscht werden (`git rm visual/<dateiname>.md`).

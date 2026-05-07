@@ -1,52 +1,57 @@
-# GSS Brand System
+# GSS Brand System (Multi-Brand)
 
-Zentrale Wahrheit der GSS Smart Solutions Marke – für Web, Decks, PDFs, Newsletter,
-Vertriebsmails, Whitepaper, Social. Single Source of Truth, von Menschen + KI gemeinsam gepflegt.
+Zentrale Wahrheit der GSS Smart Solutions Marken-DNA – für Web, Decks, PDFs,
+Newsletter, Vertriebsmails, Whitepaper, Social Posts.
 
-## Was hier passiert
+GSS Smart Solutions vereint **drei Marken**:
 
-`sources/` enthält reale Marken-Artefakte (Newsletter, Decks, Mails, Datenblätter, ...).
-Daraus destilliert Claude Code strukturiertes Wissen in `voice/`, `visual/`, `templates/`, `tokens/`.
-Andere Tools und Repos konsumieren dieses Wissen.
+| Marke | Domäne | Akzent |
+|---|---|---|
+| **GSS** | Entertainment, TV-Empfang, Hospitality | Beere |
+| **Teracue** | Broadcast, BOS, Stadien | Deep Blue |
+| **Smart City Factory** | Edge Computing, Sensorik | Lila |
 
-## Quick Start
+Plus übergreifende Konzern-Kommunikation (Shared).
 
-1. Repo lokal klonen oder Workspace öffnen.
-2. Material in `sources/<passender-subfolder>/` ablegen.
-3. In Claude Code (oder Cowork) den Extraktions-Prompt aus `prompts/extraction.md` ausführen.
-4. Ergebnis reviewen, bei Bedarf in den `voice/`- und `visual/`-Files nachschärfen.
-5. Bei jedem Material-Nachschub: Schritt 3 wiederholen.
+## Workflow
 
-## Architektur-Karte
+1. Material in `sources/<subfolder>/` ablegen, **Dateinamen mit Brand-Präfix**
+   (`gss-`, `teracue-`, `scf-`, `shared-`).
+2. Claude Code mit `prompts/extraction.md` laufen lassen.
+3. Ergebnis in `voice/_shared/`, `voice/<brand>/`, `visual/_shared/`, `visual/<brand>/` reviewen.
+4. Korrekturen committen. Bei jedem Material-Nachschub: Schritt 2 wiederholen.
+
+## Architektur
 
 ```
 gss-brand-system/
-├── sources/             ← Roh-Material (Eingabe)
-├── voice/               ← Sprache (Output)
-├── visual/              ← Optik nicht-Web (Output)
-├── templates/           ← Vorlagen (Output)
-├── tokens/              ← Maschinenlesbar (Output)
-├── prompts/             ← Wiederverwendbare Prompts
+├── sources/                        Roh-Material (Eingabe)
+├── voice/
+│   ├── _shared/                    Übergreifende Voice
+│   ├── gss/                        GSS-Voice
+│   ├── teracue/                    Teracue-Voice
+│   └── scf/                        Smart City Factory Voice
+├── visual/
+│   ├── _shared/                    Übergreifende Optik
+│   ├── gss/                        GSS-Optik
+│   ├── teracue/                    Teracue-Optik
+│   └── scf/                        SCF-Optik
+├── templates/                      Vorlagen (PPTX, DOCX, PDF, E-Mail)
+├── tokens/                         Maschinenlesbar (colors.json etc.)
+├── prompts/                        Wiederverwendbare Prompts
 └── .claude/
     ├── CLAUDE.md
     └── skills/
-        ├── brand-extraction/
-        ├── brand-voice/
-        └── brand-visual/
+        ├── brand-extraction/       Wie aus sources/ Wissen wird (brand-aware)
+        ├── brand-voice/            Konsultation für Texte
+        └── brand-visual/           Konsultation für Visuals
 ```
 
-## Konsum durch andere Systeme
+## Konsumierbar durch
 
-- **gss-website-new**: bezieht Tokens via Sync nach `packages/tokens/`
-- **my.gss.de Portal-Repo**: bezieht denselben Token-Stand
-- **Cowork (Claude Desktop)**: User wählt diesen Folder als Workspace
-- **Claude.ai Web**: relevante `.md`-Files in ein Projekt hochladen
-- **ChatGPT-Projekte / Custom-GPTs**: gleiches – Files reinladen oder über Action GitHub-Raw fetchen
-- **Automatisierungen (n8n / Make / Zapier)**: GitHub-API mit Read-Only-Token
-- **MCP-Server**: dieses Repo als Filesystem-Mount oder Knowledge-Base
-
-## Lebende Doku
-
-Brand-Systeme sind nie "fertig". Bei jedem neuen Output und jeder Korrektur:
-zurück ins Repo, Erkenntnis als kleine PR. Über die Zeit entsteht
-ein präzises Bild der echten Marke, nicht eines erfundenen Ideals.
+- Marketing-Site `gss-website-new` (Token-Sync)
+- Portal `my.gss.de` (separates Repo, gleicher Token-Stand)
+- Cowork (User wählt diesen Folder als Workspace)
+- Claude.ai Web Projekte (Markdown-Files hochladen)
+- ChatGPT Custom-GPTs (Action mit GitHub-Raw-URL)
+- Automatisierungen: n8n / Make / Zapier (GitHub-API mit Read-Token)

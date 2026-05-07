@@ -1,20 +1,29 @@
 ---
 name: brand-visual
-description: GSS visuelle Markenidentität jenseits von Web-Design – inklusive Office-Anwendungen (PowerPoint, Word), Print (PDF, Datenblätter), Foto-Direction, Iconography, Logo-Usage. Konsultiert beim Erstellen von Decks, PDFs, Briefkopf-Vorlagen, Social-Karten, Whitepaper-Layouts.
+description: GSS Smart Solutions visuelle Identität (multi-brand) jenseits Web – PowerPoint, Word, PDF, Foto-Direction, Iconography, Logo-Usage. Konsultiert bei Decks, Datenblättern, Whitepapers, Social-Cards. Brand-aware (GSS, Teracue, SCF, oder Shared).
 ---
 
-# Brand Visual – Konsultations-Skill
+# Brand Visual – Konsultations-Skill (Multi-Brand)
 
 Beim Erstellen visueller Outputs:
 
-1. Lies `visual/colors.md` für medien-spezifische Farbwerte
-   (Hex/RGB für Screen, CMYK/Pantone für Druck, Office-Theme-Codes für PowerPoint).
-2. Lies `visual/typography.md` – Hauptschriften UND Office-Fallback-Schriften
-   (Empfänger hat oft keine Montserrat installiert).
-3. Lies `visual/logo-usage.md` für Mindestgröße, Schutzräume, falsche Anwendung.
-4. Lies `visual/photography.md` für Bildauswahl/Art-Direction.
-5. Falls Template existiert in `templates/`: nutze es als Basis.
+1. **Brand bestimmen** (analog brand-voice).
 
-Bei Konflikt zwischen Web-Token (in `tokens/`) und medien-spezifischem
-Wert in `visual/colors.md`: für das jeweilige Medium den Wert aus `visual/`
-verwenden, nicht aus `tokens/`.
+2. **Lies in dieser Reihenfolge:**
+   - `visual/_shared/principles.md` (immer)
+   - `visual/_shared/typography.md` (immer)
+   - `visual/_shared/logo-system.md` (immer)
+   - `visual/<brand>/colors.md`
+   - `visual/<brand>/photography.md`
+   - `visual/<brand>/iconography.md`
+   - `tokens/colors.json` für maschinenlesbare Farb-Werte
+
+3. **Wenn Template existiert** in `templates/<format>/<brand>/`: nutze als Basis.
+
+4. **Bei Konflikt** zwischen Web-Token (`tokens/`) und medien-spezifischem Wert
+   in `visual/<brand>/colors.md` (z.B. CMYK für Print): den Wert für das
+   jeweilige Medium aus `visual/` verwenden.
+
+5. **Cross-Brand-Outputs** (Konzern-Broschüre, Karriereseite):
+   nutze nur `_shared/`, kein einzelnes Brand. Logo-Anordnung gemäß
+   `_shared/logo-system.md`.

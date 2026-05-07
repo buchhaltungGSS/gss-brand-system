@@ -1,15 +1,4 @@
-# Foto-Direction
-
-> Status: 🟡 Wird befüllt nach Sichtung von sources/presentations/, sources/landingpages/, sources/wish-design/.
-
-## Bild-Strategie
-- (Personen / Produkt / Räume / Abstrakt – Anteile?)
-
-## Lichtsprache
-- (zu extrahieren)
-
-## Composition
-- (zu extrahieren)
-
-## Verbotene Bildkonzepte
-- (Stockfoto-Klischees, die wir nicht wollen)
+> **Deprecated.** Diese Datei wurde durch die brand-spezifische Struktur ersetzt.
+> Inhalt liegt jetzt in `visual/_shared/`, `visual/gss/`, `visual/teracue/`, `visual/scf/`.
+> Siehe `visual/README.md` für die neue Aufteilung.
+> Diese Datei kann beim nächsten Commit gelöscht werden (`git rm visual/<dateiname>.md`).
